@@ -45,13 +45,13 @@ public class DatabaseOperations {
     }
 
     public static void write_to_db(String type, Contact contact) {
-        // Assuming you have tables: persons, address, AddressBook_new
+        
         String sqlInsertPerson = "insert into persons (first_name, last_name, phone_number, email) values (?, ?, ?, ?);";
         String sqlInsertAddress = "insert into address (lane, city, state, zip_code) values (?, ?, ?, ?);";
         String sqlInsertAddressBookNew = "insert into AddressBook_new (person_id, address_id, email, type,date_added) values (?, ?, ?, ?,date(now()));";
 
         try {
-            // Insert into persons table
+            
             Connection connection = getConnection();
             try (PreparedStatement insertPersonStatement = connection.prepareStatement(sqlInsertPerson)) {
                 insertPersonStatement.setString(1, contact.getFirstName());
@@ -61,7 +61,7 @@ public class DatabaseOperations {
                 insertPersonStatement.executeUpdate();
             }
 
-            // Insert into address table
+           
             try (PreparedStatement insertAddressStatement = connection.prepareStatement(sqlInsertAddress)) {
                 insertAddressStatement.setString(1, contact.getAddress());
                 insertAddressStatement.setString(2, contact.getCity());
@@ -93,7 +93,7 @@ public class DatabaseOperations {
                 }
             }
 
-            // Insert into AddressBook_new table
+           
             try (PreparedStatement insertAddressBookNewStatement = connection.prepareStatement(sqlInsertAddressBookNew)) {
                 insertAddressBookNewStatement.setInt(1, personId);
                 insertAddressBookNewStatement.setInt(2, addressId);
